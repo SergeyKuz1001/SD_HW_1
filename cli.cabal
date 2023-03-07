@@ -1,0 +1,107 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           cli
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/SergeyKuz1001/SD_HW_1#README.md>
+homepage:       https://github.com/SergeyKuz1001/SD_HW_1#readme
+bug-reports:    https://github.com/SergeyKuz1001/SD_HW_1/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2023 Kuzivanov Sergey, Samsonov Pavel, Surkis Anton
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/SergeyKuz1001/SD_HW_1
+
+library
+  exposed-modules:
+      Data.ImprovedPrimitive
+      Data.Primitive
+      Data.VarName
+      Environment
+      Environment.FSPrimitive
+      Environment.MonadError
+      Environment.MonadExit
+      Environment.MonadFS
+      Environment.MonadIO
+      Environment.MonadVarPathReader
+      Environment.MonadVarPathWriter
+      Environment.MonadVarPwdReader
+      Environment.MonadVarPwdWriter
+      Environment.MonadVarsReader
+      Environment.MonadVarsWriter
+      Phases
+      Phases.Analyzer
+      Phases.Executor
+      Phases.Parser
+      Phases.StringReader
+  other-modules:
+      Paths_cli
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      HUnit
+    , ansi-terminal
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , mtl
+    , process
+  default-language: Haskell2010
+
+executable cli-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_cli
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , ansi-terminal
+    , base >=4.7 && <5
+    , bytestring
+    , cli
+    , containers
+    , directory
+    , filepath
+    , mtl
+    , process
+  default-language: Haskell2010
+
+test-suite cli-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Phases.Analyzer.TestEnvironment
+      Phases.Analyzer.Tests
+      Phases.Executor.Tests
+      Phases.Parser.Tests
+      Paths_cli
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , ansi-terminal
+    , base >=4.7 && <5
+    , bytestring
+    , cli
+    , containers
+    , directory
+    , filepath
+    , mtl
+    , process
+  default-language: Haskell2010

@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+    - dev-2
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/hlint-setup@v2
+    - uses: haskell/actions/hlint-run@v2
+      with:
+        path: .
+        fail-on: warning
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/setup@v2
+      with:
+        enable-stack: true
+        stack-no-global: true
+    - run: stack build
+    - run: stack test
+  doc:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/setup@v2
+      with:
+        enable-stack: true
+        stack-no-global: true
+    - run: stack haddock
+    - run: echo "PUB_DIR=$(echo `stack path --dist-dir`/doc/html/cli)" >> $GITHUB_ENV
+    - uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.PUB_DIR }}

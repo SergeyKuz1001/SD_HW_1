@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+    - dev-2-**
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/hlint-setup@v2
+    - uses: haskell/actions/hlint-run@v2
+      with:
+        path: .
+        fail-on: warning
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/setup@v2
+      with:
+        enable-stack: true
+        stack-no-global: true
+    - run: stack build
+    - run: stack test
